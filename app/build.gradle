@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 def propertiesFile = rootProject.file("secret.properties")
@@ -55,6 +56,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxjava2_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+
+    // dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
 
     implementation 'com.github.nikita715:gitplag-api-model:0.2.4'
 }

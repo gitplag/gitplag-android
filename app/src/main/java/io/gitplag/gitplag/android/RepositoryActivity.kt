@@ -1,18 +1,18 @@
 package io.gitplag.gitplag.android
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
+import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
+class RepositoryActivity : DaggerAppCompatActivity() {
 
-class RepositoryActivity : Activity() {
+    @Inject
+    lateinit var gitplagApiService: GitplagClient
 
-    private val gitplagApiService by lazy {
-        GitplagClient.create()
-    }
     var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
