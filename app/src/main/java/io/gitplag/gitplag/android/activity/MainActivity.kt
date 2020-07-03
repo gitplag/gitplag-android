@@ -1,9 +1,10 @@
-package io.gitplag.gitplag.android
+package io.gitplag.gitplag.android.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import dagger.android.support.DaggerAppCompatActivity
+import io.gitplag.gitplag.android.R
 
 class MainActivity : DaggerAppCompatActivity() {
 

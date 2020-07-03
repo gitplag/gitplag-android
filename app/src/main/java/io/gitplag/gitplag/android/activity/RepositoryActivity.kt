@@ -1,8 +1,10 @@
-package io.gitplag.gitplag.android
+package io.gitplag.gitplag.android.activity
 
 import android.os.Bundle
 import android.widget.TextView
 import dagger.android.support.DaggerAppCompatActivity
+import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.client.GitplagClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

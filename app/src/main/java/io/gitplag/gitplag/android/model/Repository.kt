@@ -1,4 +1,4 @@
-package io.gitplag.gitplag.android
+package io.gitplag.gitplag.android.model
 
 class Repository(
     val id: Int,

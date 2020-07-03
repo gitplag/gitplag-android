@@ -4,9 +4,9 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
-import io.gitplag.gitplag.android.MainActivity
-import io.gitplag.gitplag.android.RepositoryActivity
-import io.gitplag.gitplag.android.RepositoryListActivity
+import io.gitplag.gitplag.android.activity.MainActivity
+import io.gitplag.gitplag.android.activity.RepositoryActivity
+import io.gitplag.gitplag.android.activity.RepositoryListActivity
 import javax.inject.Singleton
 
 @Module

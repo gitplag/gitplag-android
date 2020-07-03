@@ -1,6 +1,7 @@
-package io.gitplag.gitplag.android
+package io.gitplag.gitplag.android.client
 
 import io.gitplag.gitplag.android.BuildConfig.GITPLAG_SERVER_URL
+import io.gitplag.gitplag.android.model.Repository
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

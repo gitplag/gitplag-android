@@ -3,7 +3,7 @@ package io.gitplag.gitplag.android.di
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import io.gitplag.gitplag.android.GitplagClient
+import io.gitplag.gitplag.android.client.GitplagClient
 
 @Module
 object NetworkModule {

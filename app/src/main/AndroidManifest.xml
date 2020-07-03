@@ -13,15 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RepositoryActivity" />
-        <activity android:name=".RepositoryListActivity" />
+        <activity android:name=".activity.RepositoryActivity" />
+        <activity android:name=".activity.RepositoryListActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package io.gitplag.gitplag.android
+package io.gitplag.gitplag.android.util.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.model.Repository
 
 class RepositoryListAdapter(
     private val context: Context,
