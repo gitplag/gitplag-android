@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val buttonOne: Button = findViewById(R.id.buttonOne)
         buttonOne.setOnClickListener {
-            val activity2Intent = Intent(applicationContext, ListViewExampleActivity::class.java)
+            val activity2Intent = Intent(applicationContext, RepositoryListActivity::class.java)
             startActivity(activity2Intent)
         }
     }
