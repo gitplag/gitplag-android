@@ -1,0 +1,2 @@
+rootProject.name='Gitplag for Android'
+include ':app'
