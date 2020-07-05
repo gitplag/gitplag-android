@@ -1,5 +1,7 @@
 package io.gitplag.gitplag.android.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -23,7 +25,11 @@ object NetworkModule {
 
     @Provides
     @Reusable
-    fun provideGSON(): GsonConverterFactory = GsonConverterFactory.create()
+    fun provideGson(): Gson = GsonBuilder().create()
+
+    @Provides
+    @Reusable
+    fun provideGSONConverterFactory(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
 
     @Provides
     @Reusable

@@ -19,7 +19,7 @@ class RepositoryListActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var gitplagApiService: GitplagClient
 
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

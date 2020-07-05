@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".activity.RepositoryActivity" />
         <activity android:name=".activity.RepositoryListActivity" />
+        <activity android:name=".activity.AnalysisActivity" />
     </application>
 
 </manifest>

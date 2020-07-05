@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import io.gitplag.gitplag.android.activity.AnalysisActivity
 import io.gitplag.gitplag.android.activity.MainActivity
 import io.gitplag.gitplag.android.activity.RepositoryActivity
 import io.gitplag.gitplag.android.activity.RepositoryListActivity
@@ -15,10 +16,13 @@ abstract class AppModule {
     abstract fun mainActivity(): MainActivity
 
     @ContributesAndroidInjector(modules = [NetworkModule::class])
-    abstract fun myIntentService(): RepositoryListActivity
+    abstract fun repositoryListActivity(): RepositoryListActivity
 
     @ContributesAndroidInjector(modules = [NetworkModule::class])
-    abstract fun connectionReceiver(): RepositoryActivity
+    abstract fun repositoryActivity(): RepositoryActivity
+
+    @ContributesAndroidInjector(modules = [NetworkModule::class])
+    abstract fun analysisActivity(): AnalysisActivity
 
     companion object {
         @Provides
