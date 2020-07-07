@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".di.GitplagAndroidApp"
+        android:name="io.gitplag.android.GitplagAndroidApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="io.gitplag.android.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RepositoryActivity" />
-        <activity android:name=".activity.RepositoryListActivity" />
-        <activity android:name=".activity.AnalysisActivity" />
+        <activity android:name="io.gitplag.android.activity.RepositoryActivity" />
+        <activity android:name="io.gitplag.android.activity.RepositoryListActivity" />
+        <activity android:name="io.gitplag.android.activity.AnalysisActivity" />
     </application>
 
 </manifest>
