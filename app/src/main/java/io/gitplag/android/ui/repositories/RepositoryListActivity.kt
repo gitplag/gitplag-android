@@ -2,42 +2,40 @@ package io.gitplag.android.ui.repositories
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Repository
+import io.gitplag.android.ui.base.BaseActivity
 import io.gitplag.android.ui.repository.RepositoryActivity
+import io.gitplag.android.util.data.Status
+import io.gitplag.android.util.viewmodel.viewModelOf
 import io.gitplag.gitplag.android.databinding.RepositoryListBinding
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class RepositoryListActivity : DaggerAppCompatActivity() {
-
-    @Inject
-    lateinit var repositoryRepository: RepositoryRepository
-
-    private var disposable: Disposable? = null
+class RepositoryListActivity : BaseActivity<RepositoryListViewModel, RepositoryListBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = RepositoryListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        disposable = repositoryRepository.getAllRepositories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result ->
-                val repositoryListView = binding.repositoriesList
-                repositoryListView.setHasFixedSize(true)
-                repositoryListView.layoutManager = LinearLayoutManager(this)
-                repositoryListView.adapter = RepositoryListAdapter(result, onItemClick)
-            }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
+        viewModel.getRepositories()
+            .observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                        }
+                        Status.SUCCESS -> {
+                            val repositoryListView = binding.repositoriesList
+                            repositoryListView.setHasFixedSize(true)
+                            repositoryListView.layoutManager = LinearLayoutManager(this)
+                            repositoryListView.adapter =
+                                resource.data?.let { list -> RepositoryListAdapter(list, onItemClick) }
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
     }
 
     private val onItemClick: (i: Repository) -> Unit = {
@@ -46,5 +44,9 @@ class RepositoryListActivity : DaggerAppCompatActivity() {
         intent.putExtra("id", it.id)
         startActivity(intent)
     }
+
+    override fun initViewBinding(): RepositoryListBinding = RepositoryListBinding.inflate(layoutInflater)
+
+    override fun initViewModel(): RepositoryListViewModel = viewModelOf(viewModelProvider)
 
 }

@@ -8,10 +8,22 @@ import dagger.android.AndroidInjector
 import io.gitplag.android.GitplagAndroidApp
 import io.gitplag.android.di.module.AppModule
 import io.gitplag.android.di.module.NetworkModule
+import io.gitplag.android.di.module.RepositoryModule
+import io.gitplag.android.di.module.ViewModelFactoryModule
+import io.gitplag.android.di.module.ViewModelModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, NetworkModule::class, AppModule::class])
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        NetworkModule::class,
+        RepositoryModule::class,
+        ViewModelFactoryModule::class,
+        ViewModelModule::class,
+        AppModule::class
+    ]
+)
 interface AppComponent : AndroidInjector<GitplagAndroidApp> {
 
     @Component.Builder

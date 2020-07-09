@@ -1,41 +1,44 @@
 package io.gitplag.android.ui.analysis
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.data.repository.AnalysisRepository
+import io.gitplag.android.ui.base.BaseActivity
+import io.gitplag.android.util.data.Status
+import io.gitplag.android.util.viewmodel.viewModelOf
 import io.gitplag.gitplag.android.databinding.AnalysisBinding
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class AnalysisActivity : DaggerAppCompatActivity() {
-
-    @Inject
-    lateinit var analysisRepository: AnalysisRepository
-
-    private var disposableAnalysis: Disposable? = null
+class AnalysisActivity : BaseActivity<AnalysisViewModel, AnalysisBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = AnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val id = intent.getLongExtra("id", -1)
-        disposableAnalysis = analysisRepository.getAnalysis(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result ->
-                binding.repositoryName.text = result.repoName
-                val analysisPairListView = binding.analyzesPairsList
-                analysisPairListView.setHasFixedSize(true)
-                analysisPairListView.layoutManager = LinearLayoutManager(this)
-                analysisPairListView.adapter = AnalysisPairListAdapter(result.analysisPairs)
-            }
+        viewModel.getAnalysis(id)
+            .observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                        }
+                        Status.SUCCESS -> {
+                            binding.repositoryName.text = resource.data?.repoName
+                            val analysisPairListView = binding.analyzesPairsList
+                            analysisPairListView.setHasFixedSize(true)
+                            analysisPairListView.layoutManager = LinearLayoutManager(this)
+                            analysisPairListView.adapter = resource.data?.analysisPairs?.let { it1 ->
+                                AnalysisPairListAdapter(it1)
+                            }
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
     }
 
-    override fun onPause() {
-        super.onPause()
-        disposableAnalysis?.dispose()
-    }
+    override fun initViewBinding(): AnalysisBinding = AnalysisBinding.inflate(layoutInflater)
+
+    override fun initViewModel(): AnalysisViewModel = viewModelOf(viewModelProvider)
 }

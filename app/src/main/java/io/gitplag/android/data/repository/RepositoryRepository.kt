@@ -9,8 +9,8 @@ class RepositoryRepository @Inject constructor(
     private val gitplagClient: GitplagClient
 ) {
 
-    fun getRepository(repositoryId: Long) = gitplagClient.getRepository(repositoryId)
+    suspend fun getRepository(repositoryId: Long) = gitplagClient.getRepository(repositoryId)
 
-    fun getAllRepositories() = gitplagClient.getRepositories()
+    suspend fun getAllRepositories() = gitplagClient.getRepositories()
 
 }
