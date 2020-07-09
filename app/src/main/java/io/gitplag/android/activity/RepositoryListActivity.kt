@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.client.GitplagClient
+import io.gitplag.android.data.RepositoryRepository
 import io.gitplag.android.util.adapter.RepositoryListAdapter
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class RepositoryListActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var gitplagApiService: GitplagClient
+    lateinit var repositoryRepository: RepositoryRepository
 
     private var disposable: Disposable? = null
 
@@ -25,7 +25,7 @@ class RepositoryListActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.repository_list)
         val listView = findViewById<ListView>(R.id.repository_list)
-        disposable = gitplagApiService.getRepositories()
+        disposable = repositoryRepository.getAllRepositories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->

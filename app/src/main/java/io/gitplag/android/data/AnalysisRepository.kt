@@ -11,6 +11,6 @@ class AnalysisRepository @Inject constructor(
 
     fun getAnalysis(analysisId: Long) = gitplagClient.getAnalysis(analysisId)
 
-    fun getAllAnalyzes(repositoryId: Long) = gitplagClient.getRepositoryAnalyzes(repositoryId)
+    fun getAllAnalyzesOfRepository(repositoryId: Long) = gitplagClient.getRepositoryAnalyzes(repositoryId)
 
 }

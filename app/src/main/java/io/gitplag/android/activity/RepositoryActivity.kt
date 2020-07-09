@@ -7,7 +7,8 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.client.GitplagClient
+import io.gitplag.android.data.AnalysisRepository
+import io.gitplag.android.data.RepositoryRepository
 import io.gitplag.android.model.Repository
 import io.gitplag.android.util.adapter.AnalysisListAdapter
 import io.gitplag.android.util.adapter.RepositoryListAdapter
@@ -20,7 +21,10 @@ import javax.inject.Inject
 class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnItemClickListener {
 
     @Inject
-    lateinit var gitplagApiService: GitplagClient
+    lateinit var repositoryRepository: RepositoryRepository
+
+    @Inject
+    lateinit var analysisRepository: AnalysisRepository
 
     private var disposableRepository: Disposable? = null
     private var disposableAnalyzes: Disposable? = null
@@ -33,7 +37,7 @@ class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnIt
         val serviceTextView = findViewById<TextView>(R.id.repository__repository_service)
         val analyzesListView = findViewById<ListView>(R.id.repository__analysis_list)
         val id = intent.getLongExtra("id", -1)
-        disposableRepository = gitplagApiService.getRepository(id)
+        disposableRepository = repositoryRepository.getRepository(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
@@ -41,7 +45,7 @@ class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnIt
                 languageTextView.text = result.language
                 serviceTextView.text = result.gitService
             }
-        disposableAnalyzes = gitplagApiService.getRepositoryAnalyzes(id)
+        disposableAnalyzes = analysisRepository.getAllAnalyzesOfRepository(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->

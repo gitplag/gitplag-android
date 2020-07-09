@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.client.GitplagClient
+import io.gitplag.android.data.AnalysisRepository
 import io.gitplag.android.util.adapter.AnalysisPairListAdapter
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AnalysisActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var gitplagApiService: GitplagClient
+    lateinit var analysisRepository: AnalysisRepository
 
     private var disposableAnalysis: Disposable? = null
 
@@ -25,7 +25,7 @@ class AnalysisActivity : DaggerAppCompatActivity() {
         val nameTextView = findViewById<TextView>(R.id.analysis__repository_name)
         val analysisPairsListView = findViewById<ListView>(R.id.analysis__pair_list)
         val id = intent.getLongExtra("id", -1)
-        disposableAnalysis = gitplagApiService.getAnalysis(id)
+        disposableAnalysis = analysisRepository.getAnalysis(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
