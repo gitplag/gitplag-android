@@ -2,16 +2,14 @@ package io.gitplag.android.ui.repository
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.data.repository.AnalysisRepository
 import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Analysis
 import io.gitplag.android.ui.analysis.AnalysisActivity
 import io.gitplag.android.util.OnItemClickListener
-import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.databinding.RepositoryBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -30,28 +28,25 @@ class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analys
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.repository)
-        val nameTextView = findViewById<TextView>(R.id.repository__repository_name)
-        val languageTextView = findViewById<TextView>(R.id.repository__repository_language)
-        val serviceTextView = findViewById<TextView>(R.id.repository__repository_service)
-        val analyzesListView = findViewById<RecyclerView>(R.id.repository__analysis_list)
+        val binding = RepositoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val id = intent.getLongExtra("id", -1)
         disposableRepository = repositoryRepository.getRepository(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                nameTextView.text = result.name
-                languageTextView.text = result.language
-                serviceTextView.text = result.gitService
+                binding.repositoryRepositoryName.text = result.name
+                binding.repositoryRepositoryLanguage.text = result.language
+                binding.repositoryRepositoryService.text = result.gitService
             }
         disposableAnalyzes = analysisRepository.getAllAnalyzesOfRepository(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
+                val analyzesListView = binding.repositoryAnalysisList
                 analyzesListView.setHasFixedSize(true)
                 analyzesListView.layoutManager = LinearLayoutManager(this)
-                analyzesListView.adapter =
-                    AnalysisListAdapter(result, this)
+                analyzesListView.adapter = AnalysisListAdapter(result, this)
             }
     }
 

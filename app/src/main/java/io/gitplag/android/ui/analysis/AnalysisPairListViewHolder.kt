@@ -1,10 +1,18 @@
 package io.gitplag.android.ui.analysis
 
-import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import io.gitplag.gitplag.android.R
+import io.gitplag.android.model.AnalysisPair
+import io.gitplag.android.util.OnItemClickListener
+import io.gitplag.gitplag.android.databinding.AnalysisPairListItemBinding
 
-class AnalysisPairListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val nameTextView: TextView = view.findViewById(R.id.analysis_list_item)
+class AnalysisPairListViewHolder(private val binding: AnalysisPairListItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(pair: AnalysisPair, onItemClickListener: OnItemClickListener<AnalysisPair>) {
+        binding.analysisPairListItem.text = "${pair.student1}  ${pair.student2}: ${pair.percentage}"
+        binding.root.setOnClickListener {
+            onItemClickListener.onItemClick(pair)
+        }
+    }
+
 }

@@ -3,13 +3,12 @@ package io.gitplag.android.ui.repositories
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Repository
 import io.gitplag.android.ui.repository.RepositoryActivity
 import io.gitplag.android.util.OnItemClickListener
-import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.databinding.RepositoryListBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -24,16 +23,16 @@ class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Re
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.repository_list)
-        val listView = findViewById<RecyclerView>(R.id.repositoriesListRecyclerView)
+        val binding = RepositoryListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         disposable = repositoryRepository.getAllRepositories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                listView.setHasFixedSize(true)
-                listView.layoutManager = LinearLayoutManager(this)
-                listView.adapter =
-                    RepositoryListAdapter(result, this)
+                val repositoryListView = binding.repositoriesListRecyclerView
+                repositoryListView.setHasFixedSize(true)
+                repositoryListView.layoutManager = LinearLayoutManager(this)
+                repositoryListView.adapter = RepositoryListAdapter(result, this)
             }
     }
 

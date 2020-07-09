@@ -2,19 +2,18 @@ package io.gitplag.android.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.ui.repositories.RepositoryListActivity
-import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.databinding.ActivityMainBinding
 
 class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val buttonOne: Button = findViewById(R.id.buttonOne)
-        buttonOne.setOnClickListener {
+        binding.buttonOne.setOnClickListener {
             val activity2Intent = Intent(applicationContext, RepositoryListActivity::class.java)
             startActivity(activity2Intent)
         }

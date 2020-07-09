@@ -9,15 +9,15 @@ import io.gitplag.android.ui.repository.RepositoryActivity
 
 @Module
 abstract class AppModule {
-    @ContributesAndroidInjector(modules = [NetworkModule::class])
+    @ContributesAndroidInjector(modules = [NetworkModule::class, RepositoryModule::class])
     abstract fun mainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [NetworkModule::class])
+    @ContributesAndroidInjector(modules = [NetworkModule::class, RepositoryModule::class])
     abstract fun repositoryListActivity(): RepositoryListActivity
 
-    @ContributesAndroidInjector(modules = [NetworkModule::class])
+    @ContributesAndroidInjector(modules = [NetworkModule::class, RepositoryModule::class])
     abstract fun repositoryActivity(): RepositoryActivity
 
-    @ContributesAndroidInjector(modules = [NetworkModule::class])
+    @ContributesAndroidInjector(modules = [NetworkModule::class, RepositoryModule::class])
     abstract fun analysisActivity(): AnalysisActivity
 }

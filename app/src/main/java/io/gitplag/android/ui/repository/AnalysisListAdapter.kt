@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import io.gitplag.android.model.Analysis
 import io.gitplag.android.util.diffItemCallback
-import io.gitplag.gitplag.android.R
+import io.gitplag.gitplag.android.databinding.AnalysisListItemBinding
 
 class AnalysisListAdapter(
     private val data: List<Analysis>,
@@ -14,18 +14,13 @@ class AnalysisListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisListViewHolder =
         AnalysisListViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.analysis_list_item, parent, false)
+            AnalysisListItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: AnalysisListViewHolder, position: Int) {
-        val analysis = data[position]
-        holder.nameTextView.text = analysis.date
-        holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(analysis)
-        }
-    }
+    override fun onBindViewHolder(holder: AnalysisListViewHolder, position: Int) =
+        holder.bind(data[position], onItemClickListener)
 }
