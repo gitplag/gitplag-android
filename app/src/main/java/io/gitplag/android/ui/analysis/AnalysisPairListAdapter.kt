@@ -1,11 +1,8 @@
-package io.gitplag.android.util.adapter
+package io.gitplag.android.ui.analysis
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import io.gitplag.android.model.AnalysisPair
 import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.android.util.diffItemCallback
@@ -14,7 +11,7 @@ import io.gitplag.gitplag.android.R
 class AnalysisPairListAdapter(
     private val data: List<AnalysisPair>,
     private val onItemClickListener: OnItemClickListener<AnalysisPair>? = null
-) : ListAdapter<AnalysisPair, AnalysisPairListAdapter.AnalysisPairListViewHolder>(diffItemCallback()) {
+) : ListAdapter<AnalysisPair, AnalysisPairListViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisPairListViewHolder =
         AnalysisPairListViewHolder(
@@ -31,9 +28,5 @@ class AnalysisPairListAdapter(
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(pair)
         }
-    }
-
-    class AnalysisPairListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.analysis_list_item)
     }
 }

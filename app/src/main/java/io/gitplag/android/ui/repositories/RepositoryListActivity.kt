@@ -1,14 +1,14 @@
-package io.gitplag.android.activity
+package io.gitplag.android.ui.repositories
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.data.RepositoryRepository
+import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Repository
+import io.gitplag.android.ui.repository.RepositoryActivity
 import io.gitplag.android.util.OnItemClickListener
-import io.gitplag.android.util.adapter.RepositoryListAdapter
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -32,7 +32,8 @@ class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Re
             .subscribe { result ->
                 listView.setHasFixedSize(true)
                 listView.layoutManager = LinearLayoutManager(this)
-                listView.adapter = RepositoryListAdapter(result, this)
+                listView.adapter =
+                    RepositoryListAdapter(result, this)
             }
     }
 

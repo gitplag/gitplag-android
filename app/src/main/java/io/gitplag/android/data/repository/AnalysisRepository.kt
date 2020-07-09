@@ -1,6 +1,6 @@
-package io.gitplag.android.data
+package io.gitplag.android.data.repository
 
-import io.gitplag.android.client.GitplagClient
+import io.gitplag.android.data.client.GitplagClient
 import javax.inject.Inject
 import javax.inject.Singleton
 

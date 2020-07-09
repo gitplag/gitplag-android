@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import io.gitplag.android.client.GitplagClient
+import io.gitplag.android.data.client.GitplagClient
 import io.gitplag.gitplag.android.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -50,6 +50,8 @@ object NetworkModule {
 
     @Provides
     @Reusable
-    fun provideGitplagClient(retrofit: Retrofit): GitplagClient = retrofit.create(GitplagClient::class.java)
+    fun provideGitplagClient(retrofit: Retrofit): GitplagClient = retrofit.create(
+        GitplagClient::class.java
+    )
 
 }

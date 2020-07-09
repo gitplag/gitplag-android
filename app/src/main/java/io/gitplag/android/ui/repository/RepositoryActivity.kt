@@ -1,4 +1,4 @@
-package io.gitplag.android.activity
+package io.gitplag.android.ui.repository
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.data.AnalysisRepository
-import io.gitplag.android.data.RepositoryRepository
+import io.gitplag.android.data.repository.AnalysisRepository
+import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Analysis
+import io.gitplag.android.ui.analysis.AnalysisActivity
 import io.gitplag.android.util.OnItemClickListener
-import io.gitplag.android.util.adapter.AnalysisListAdapter
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -50,7 +50,8 @@ class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analys
             .subscribe { result ->
                 analyzesListView.setHasFixedSize(true)
                 analyzesListView.layoutManager = LinearLayoutManager(this)
-                analyzesListView.adapter = AnalysisListAdapter(result, this)
+                analyzesListView.adapter =
+                    AnalysisListAdapter(result, this)
             }
     }
 

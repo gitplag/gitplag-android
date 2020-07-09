@@ -2,10 +2,10 @@ package io.gitplag.android.di.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import io.gitplag.android.activity.AnalysisActivity
-import io.gitplag.android.activity.MainActivity
-import io.gitplag.android.activity.RepositoryActivity
-import io.gitplag.android.activity.RepositoryListActivity
+import io.gitplag.android.ui.analysis.AnalysisActivity
+import io.gitplag.android.ui.main.MainActivity
+import io.gitplag.android.ui.repositories.RepositoryListActivity
+import io.gitplag.android.ui.repository.RepositoryActivity
 
 @Module
 abstract class AppModule {

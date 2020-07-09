@@ -1,12 +1,11 @@
-package io.gitplag.android.activity
+package io.gitplag.android.ui.analysis
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
-import io.gitplag.android.data.AnalysisRepository
-import io.gitplag.android.util.adapter.AnalysisPairListAdapter
+import io.gitplag.android.data.repository.AnalysisRepository
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -33,7 +32,8 @@ class AnalysisActivity : DaggerAppCompatActivity() {
                 nameTextView.text = result.repoName
                 analysisPairsListView.setHasFixedSize(true)
                 analysisPairsListView.layoutManager = LinearLayoutManager(this)
-                analysisPairsListView.adapter = AnalysisPairListAdapter(result.analysisPairs)
+                analysisPairsListView.adapter =
+                    AnalysisPairListAdapter(result.analysisPairs)
             }
     }
 

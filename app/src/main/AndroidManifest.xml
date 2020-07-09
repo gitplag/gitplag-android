@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="io.gitplag.android.activity.MainActivity">
+        <activity android:name="io.gitplag.android.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="io.gitplag.android.activity.RepositoryActivity" />
-        <activity android:name="io.gitplag.android.activity.RepositoryListActivity" />
-        <activity android:name="io.gitplag.android.activity.AnalysisActivity" />
+        <activity android:name="io.gitplag.android.ui.repository.RepositoryActivity" />
+        <activity android:name="io.gitplag.android.ui.repositories.RepositoryListActivity" />
+        <activity android:name="io.gitplag.android.ui.analysis.AnalysisActivity" />
     </application>
 
 </manifest>

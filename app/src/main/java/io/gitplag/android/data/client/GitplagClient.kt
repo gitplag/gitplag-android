@@ -1,4 +1,4 @@
-package io.gitplag.android.client
+package io.gitplag.android.data.client
 
 import io.gitplag.android.model.Analysis
 import io.gitplag.android.model.Repository
