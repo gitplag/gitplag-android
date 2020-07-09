@@ -11,7 +11,3 @@ fun <T : Identifiable> diffItemCallback() = object : DiffUtil.ItemCallback<T>() 
         oldItem.equals(newItem)
 
 }
-
-interface OnItemClickListener<T : Identifiable> {
-    fun onItemClick(item: T)
-}

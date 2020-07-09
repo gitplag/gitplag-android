@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import io.gitplag.android.model.Repository
-import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.android.util.diffItemCallback
 import io.gitplag.gitplag.android.databinding.RepositoryListItemBinding
 
 class RepositoryListAdapter(
     private val data: List<Repository>,
-    private val onItemClickListener: OnItemClickListener<Repository>
+    private val onItemClickListener: (i: Repository) -> Unit = {}
 ) : ListAdapter<Repository, RepositoryListViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryListViewHolder =

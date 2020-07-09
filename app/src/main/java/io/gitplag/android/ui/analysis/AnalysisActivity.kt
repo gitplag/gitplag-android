@@ -4,15 +4,13 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.data.repository.AnalysisRepository
-import io.gitplag.android.model.AnalysisPair
-import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.gitplag.android.databinding.AnalysisBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class AnalysisActivity : DaggerAppCompatActivity(), OnItemClickListener<AnalysisPair> {
+class AnalysisActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var analysisRepository: AnalysisRepository
@@ -32,16 +30,12 @@ class AnalysisActivity : DaggerAppCompatActivity(), OnItemClickListener<Analysis
                 val analysisPairListView = binding.analyzesPairsList
                 analysisPairListView.setHasFixedSize(true)
                 analysisPairListView.layoutManager = LinearLayoutManager(this)
-                analysisPairListView.adapter = AnalysisPairListAdapter(result.analysisPairs, this)
+                analysisPairListView.adapter = AnalysisPairListAdapter(result.analysisPairs)
             }
     }
-
 
     override fun onPause() {
         super.onPause()
         disposableAnalysis?.dispose()
-    }
-
-    override fun onItemClick(item: AnalysisPair) {
     }
 }

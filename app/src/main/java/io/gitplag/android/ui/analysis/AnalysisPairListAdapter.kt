@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import io.gitplag.android.model.AnalysisPair
-import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.android.util.diffItemCallback
 import io.gitplag.gitplag.android.databinding.AnalysisPairListItemBinding
 
 class AnalysisPairListAdapter(
     private val data: List<AnalysisPair>,
-    private val onItemClickListener: OnItemClickListener<AnalysisPair>
+    private val onItemClickListener: (i: AnalysisPair) -> Unit = {}
 ) : ListAdapter<AnalysisPair, AnalysisPairListViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisPairListViewHolder =

@@ -7,14 +7,13 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Repository
 import io.gitplag.android.ui.repository.RepositoryActivity
-import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.gitplag.android.databinding.RepositoryListBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Repository> {
+class RepositoryListActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var repositoryRepository: RepositoryRepository
@@ -32,7 +31,7 @@ class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Re
                 val repositoryListView = binding.repositoriesList
                 repositoryListView.setHasFixedSize(true)
                 repositoryListView.layoutManager = LinearLayoutManager(this)
-                repositoryListView.adapter = RepositoryListAdapter(result, this)
+                repositoryListView.adapter = RepositoryListAdapter(result, onItemClick)
             }
     }
 
@@ -41,10 +40,10 @@ class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Re
         disposable?.dispose()
     }
 
-    override fun onItemClick(item: Repository) {
+    private val onItemClick: (i: Repository) -> Unit = {
         val intent = Intent()
         intent.setClass(this, RepositoryActivity::class.java)
-        intent.putExtra("id", item.id)
+        intent.putExtra("id", it.id)
         startActivity(intent)
     }
 

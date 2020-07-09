@@ -8,14 +8,13 @@ import io.gitplag.android.data.repository.AnalysisRepository
 import io.gitplag.android.data.repository.RepositoryRepository
 import io.gitplag.android.model.Analysis
 import io.gitplag.android.ui.analysis.AnalysisActivity
-import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.gitplag.android.databinding.RepositoryBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analysis> {
+class RepositoryActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var repositoryRepository: RepositoryRepository
@@ -46,7 +45,7 @@ class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analys
                 val analyzesListView = binding.repositoryAnalyzesList
                 analyzesListView.setHasFixedSize(true)
                 analyzesListView.layoutManager = LinearLayoutManager(this)
-                analyzesListView.adapter = AnalysisListAdapter(result, this)
+                analyzesListView.adapter = AnalysisListAdapter(result, onItemClick)
             }
     }
 
@@ -56,10 +55,10 @@ class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analys
         disposableAnalyzes?.dispose()
     }
 
-    override fun onItemClick(item: Analysis) {
+    private val onItemClick: (i: Analysis) -> Unit = {
         val intent = Intent()
         intent.setClass(this, AnalysisActivity::class.java)
-        intent.putExtra("id", item.id)
+        intent.putExtra("id", it.id)
         startActivity(intent)
     }
 }

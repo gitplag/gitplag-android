@@ -9,7 +9,7 @@ import io.gitplag.gitplag.android.databinding.AnalysisListItemBinding
 
 class AnalysisListAdapter(
     private val data: List<Analysis>,
-    private val onItemClickListener: io.gitplag.android.util.OnItemClickListener<Analysis>
+    private val onItemClickListener: (i: Analysis) -> Unit = {}
 ) : ListAdapter<Analysis, AnalysisListViewHolder>(diffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalysisListViewHolder =
