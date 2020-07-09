@@ -29,7 +29,7 @@ class RepositoryListActivity : DaggerAppCompatActivity(), OnItemClickListener<Re
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                val repositoryListView = binding.repositoriesListRecyclerView
+                val repositoryListView = binding.repositoriesList
                 repositoryListView.setHasFixedSize(true)
                 repositoryListView.layoutManager = LinearLayoutManager(this)
                 repositoryListView.adapter = RepositoryListAdapter(result, this)

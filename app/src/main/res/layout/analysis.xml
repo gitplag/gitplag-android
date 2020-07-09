@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/analysis__repository_name"
+        android:id="@+id/repositoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/analysis__pair_list"
+        android:id="@+id/analyzesPairsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

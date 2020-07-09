@@ -9,7 +9,7 @@ class AnalysisPairListViewHolder(private val binding: AnalysisPairListItemBindin
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(pair: AnalysisPair, onItemClickListener: OnItemClickListener<AnalysisPair>) {
-        binding.analysisPairListItem.text = "${pair.student1}  ${pair.student2}: ${pair.percentage}"
+        binding.analysisPairName.text = "${pair.student1}  ${pair.student2}: ${pair.percentage}"
         binding.root.setOnClickListener {
             onItemClickListener.onItemClick(pair)
         }

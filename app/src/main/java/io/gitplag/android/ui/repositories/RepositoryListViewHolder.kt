@@ -8,7 +8,7 @@ import io.gitplag.gitplag.android.databinding.RepositoryListItemBinding
 class RepositoryListViewHolder(private val binding: RepositoryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(repository: Repository, onItemClickListener: OnItemClickListener<Repository>) {
-        binding.repositoryListItem.text = repository.name
+        binding.repositoryName.text = repository.name
         binding.root.setOnClickListener {
             onItemClickListener.onItemClick(repository)
         }

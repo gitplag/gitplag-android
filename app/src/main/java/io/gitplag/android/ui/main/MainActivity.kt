@@ -13,7 +13,7 @@ class MainActivity : DaggerAppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonOne.setOnClickListener {
+        binding.startButton.setOnClickListener {
             val activity2Intent = Intent(applicationContext, RepositoryListActivity::class.java)
             startActivity(activity2Intent)
         }

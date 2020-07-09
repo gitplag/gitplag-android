@@ -8,10 +8,10 @@
     tools:ignore="UnusedAttribute">
 
     <TextView
-        android:id="@+id/analysis_pair_list_item"
+        android:id="@+id/analysisPairName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:height="100px"
+        android:height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem" />

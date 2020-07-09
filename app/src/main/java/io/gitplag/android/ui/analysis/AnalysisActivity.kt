@@ -28,8 +28,8 @@ class AnalysisActivity : DaggerAppCompatActivity(), OnItemClickListener<Analysis
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                binding.analysisRepositoryName.text = result.repoName
-                val analysisPairListView = binding.analysisPairList
+                binding.repositoryName.text = result.repoName
+                val analysisPairListView = binding.analyzesPairsList
                 analysisPairListView.setHasFixedSize(true)
                 analysisPairListView.layoutManager = LinearLayoutManager(this)
                 analysisPairListView.adapter = AnalysisPairListAdapter(result.analysisPairs, this)

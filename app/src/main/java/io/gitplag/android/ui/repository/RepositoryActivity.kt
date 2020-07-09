@@ -35,15 +35,15 @@ class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analys
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                binding.repositoryRepositoryName.text = result.name
-                binding.repositoryRepositoryLanguage.text = result.language
-                binding.repositoryRepositoryService.text = result.gitService
+                binding.repositoryName.text = result.name
+                binding.repositoryLanguage.text = result.language
+                binding.repositoryService.text = result.gitService
             }
         disposableAnalyzes = analysisRepository.getAllAnalyzesOfRepository(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                val analyzesListView = binding.repositoryAnalysisList
+                val analyzesListView = binding.repositoryAnalyzesList
                 analyzesListView.setHasFixedSize(true)
                 analyzesListView.layoutManager = LinearLayoutManager(this)
                 analyzesListView.adapter = AnalysisListAdapter(result, this)
