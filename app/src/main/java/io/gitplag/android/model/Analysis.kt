@@ -1,7 +1,7 @@
 package io.gitplag.android.model
 
-class Analysis(
-    val id: Long,
+data class Analysis(
+    override val id: Long,
     val repo: Long,
     val repoName: String,
     val analyzer: String,
@@ -9,4 +9,4 @@ class Analysis(
     val date: String,
     val resultLink: String,
     val analysisPairs: List<AnalysisPair>
-)
+) : Identifiable

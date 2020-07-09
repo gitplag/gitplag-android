@@ -2,23 +2,22 @@ package io.gitplag.android.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ListView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerAppCompatActivity
 import io.gitplag.android.data.AnalysisRepository
 import io.gitplag.android.data.RepositoryRepository
-import io.gitplag.android.model.Repository
+import io.gitplag.android.model.Analysis
+import io.gitplag.android.util.OnItemClickListener
 import io.gitplag.android.util.adapter.AnalysisListAdapter
-import io.gitplag.android.util.adapter.RepositoryListAdapter
 import io.gitplag.gitplag.android.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnItemClickListener {
+class RepositoryActivity : DaggerAppCompatActivity(), OnItemClickListener<Analysis> {
 
     @Inject
     lateinit var repositoryRepository: RepositoryRepository
@@ -35,7 +34,7 @@ class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnIt
         val nameTextView = findViewById<TextView>(R.id.repository__repository_name)
         val languageTextView = findViewById<TextView>(R.id.repository__repository_language)
         val serviceTextView = findViewById<TextView>(R.id.repository__repository_service)
-        val analyzesListView = findViewById<ListView>(R.id.repository__analysis_list)
+        val analyzesListView = findViewById<RecyclerView>(R.id.repository__analysis_list)
         val id = intent.getLongExtra("id", -1)
         disposableRepository = repositoryRepository.getRepository(id)
             .subscribeOn(Schedulers.io())
@@ -49,16 +48,9 @@ class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnIt
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result ->
-                analyzesListView.adapter = AnalysisListAdapter(this, result)
-                analyzesListView.onItemClickListener = AdapterView.OnItemClickListener { _: AdapterView<*>?, v: View?,
-                                                                                         _: Int, id: Long ->
-                    v?.apply {
-                        val intent = Intent()
-                        intent.setClass(context, AnalysisActivity::class.java)
-                        intent.putExtra("id", id)
-                        startActivity(intent)
-                    }
-                }
+                analyzesListView.setHasFixedSize(true)
+                analyzesListView.layoutManager = LinearLayoutManager(this)
+                analyzesListView.adapter = AnalysisListAdapter(result, this)
             }
     }
 
@@ -68,9 +60,10 @@ class RepositoryActivity : DaggerAppCompatActivity(), RepositoryListAdapter.OnIt
         disposableAnalyzes?.dispose()
     }
 
-    override fun onItemClicked(repository: Repository) {
-        val intent = Intent(this, RepositoryActivity::class.java)
-        intent.putExtra("id", repository.id)
+    override fun onItemClick(item: Analysis) {
+        val intent = Intent()
+        intent.setClass(this, AnalysisActivity::class.java)
+        intent.putExtra("id", item.id)
         startActivity(intent)
     }
 }
